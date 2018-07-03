@@ -3,9 +3,9 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Account-Owner Home</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="#">Owner Actions</a></li>
-      <li><a href="#">Account Actions</a></li>
-    </ul>
+      <ul class="nav navbar-nav">
+            <li><a [routerLink]="['/users/list']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Users Actions</a></li>
+            <li><a href="#">Account Actions</a></li>
+      </ul>
   </div>
 </nav>
