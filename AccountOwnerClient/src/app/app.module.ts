@@ -8,13 +8,16 @@ import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { EnvironmentUrlService } from './shared/services/environment-url.service';
 import { HttpClientModule } from '@angular/common/http';
+import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
+import { ErrorHandlerService } from './shared/services/error-handler.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InternalServerComponent
   ],
   imports: [
     BrowserModule,
@@ -23,11 +26,12 @@ import { HttpClientModule } from '@angular/common/http';
       { path: 'home', component: HomeComponent },
       { path: 'users', loadChildren: "./user/user.module#UserModule" },
       { path: '404', component : NotFoundComponent},
+      { path: '500', component: InternalServerComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: '**', redirectTo: '/404', pathMatch: 'full'}
     ])
   ],
-  providers: [EnvironmentUrlService],
+  providers: [EnvironmentUrlService, ErrorHandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
