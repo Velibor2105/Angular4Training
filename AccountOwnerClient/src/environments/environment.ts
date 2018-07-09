@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  urlAddress: 'https://localhost:44312'
+  urlAddress: 'https://localhost:44312',
+  openIdConnectSettings: {
+    authority: 'https://localhost:44398/',
+    client_id: 'ecomangularclient',
+    redirect_uri: 'https://localhost:4200/signin-oidc',
+    scope: 'openid profile roles',
+    response_type: 'id_token',
+    post_logout_redirect_uri: 'https://localhost:4200/',
+  }
 };
 
 /*

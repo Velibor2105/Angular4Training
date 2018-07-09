@@ -10,6 +10,8 @@ import { EnvironmentUrlService } from './shared/services/environment-url.service
 import { HttpClientModule } from '@angular/common/http';
 import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
+import { OpenIdConnectService } from './shared/services/open-id-connect.service';
+import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
     MenuComponent,
     NotFoundComponent,
     InternalServerComponent,
+    SigninOidcComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,10 +32,11 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
       { path: '404', component : NotFoundComponent},
       { path: '500', component: InternalServerComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: '**', redirectTo: '/404', pathMatch: 'full'}
+      { path: '**', redirectTo: '/404', pathMatch: 'full'},
+      { path: 'signin-oidc', component: SigninOidcComponent }
     ])
   ],
-  providers: [EnvironmentUrlService, ErrorHandlerService],
+  providers: [EnvironmentUrlService, ErrorHandlerService, OpenIdConnectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
