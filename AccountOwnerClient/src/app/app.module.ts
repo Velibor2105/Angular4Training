@@ -11,13 +11,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
     NotFoundComponent,
-    InternalServerComponent
+    InternalServerComponent,
   ],
   imports: [
     BrowserModule,

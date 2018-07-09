@@ -2,7 +2,7 @@ import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { RepositoryService } from './../../shared/services/repository.service';
 import { User } from './../../_interfaces/user.model';
 import { ErrorHandlerService } from '../../shared/services/error-handler.service';
-import  { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
