@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserManager, User } from 'oidc-client';
 import { environment } from '../../../environments/environment';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,9 @@ export class OpenIdConnectService {
   private userManager: UserManager = new UserManager(environment.openIdConnectSettings);
   private currentUser: User;
 
+  userLoaded$ = new ReplaySubject<boolean>(1);
+
+  
 
   get userAvailable(): boolean {
     return this.currentUser != null;
@@ -27,6 +31,15 @@ export class OpenIdConnectService {
         console.log('User loaded.', user);
       }
       this.currentUser = user;
+      this.userLoaded$.next(true);
+    });
+
+    this.userManager.events.addUserUnloaded((e) => {
+      if(!environment.production){
+        console.log('User unloaded.');
+      }
+      this.currentUser = null;
+      this.userLoaded$.next(false);
     });
   }
 
@@ -35,15 +48,23 @@ export class OpenIdConnectService {
       if(!environment.production){
         console.log('Redirection to signin triggered');
       }
-    })
+    });
   }
 
-  handkeCallBack(){
-    this.userManager.signinPopupCallback().then(function(user){
+  handleCallBack(){
+    this.userManager.signinRedirectCallback().then(function(user){
       if(!environment.production){
         console.log('Callback after signing handled.', user);
       }
     });
   }
+
+  triggerSignOut(){
+    this.userManager.signoutRedirect().then(function (resp){
+      if(!environment.production){
+        console.log("Redirection to sign out triggered", resp);
+      }
+    });
+  };
 
 }
