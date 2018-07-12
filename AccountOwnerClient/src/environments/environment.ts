@@ -9,8 +9,8 @@ export const environment = {
     authority: 'https://localhost:44398/',
     client_id: 'ecomangularclient',
     redirect_uri: 'https://localhost:4200/signin-oidc',
-    scope: 'openid profile roles',
-    response_type: 'id_token',
+    scope: 'openid profile roles tourmanagementapi',
+    response_type: 'id_token token',
     post_logout_redirect_uri: 'https://localhost:4200/',
   }
 };

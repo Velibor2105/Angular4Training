@@ -7,13 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { EnvironmentUrlService } from './shared/services/environment-url.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import { OpenIdConnectService } from './shared/services/open-id-connect.service';
 import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
 import { ContactComponent } from './contact/contact.component';
 import { GuardServiceService } from './shared/services/guard-service.service';
+import { AddAuthorizationHeaderInterceptor } from './shared/services/add-authorization-header-interceptor';
 
 
 @NgModule({
@@ -40,7 +41,17 @@ import { GuardServiceService } from './shared/services/guard-service.service';
       { path: '**', redirectTo: '/404', pathMatch: 'full', canActivate: [GuardServiceService] }
     ])
   ],
-  providers: [EnvironmentUrlService, ErrorHandlerService, OpenIdConnectService,GuardServiceService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddAuthorizationHeaderInterceptor,
+      multi: true
+    },
+    EnvironmentUrlService, 
+    ErrorHandlerService, 
+    OpenIdConnectService,
+    GuardServiceService 
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
